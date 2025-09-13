@@ -4,3 +4,4 @@ logs
 .env
 clean-repo
 .env.copy
+ecom_venv2
