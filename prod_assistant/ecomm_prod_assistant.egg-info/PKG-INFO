@@ -1,0 +1,12 @@
+Metadata-Version: 2.4
+Name: ecomm-prod-assistant
+Version: 0.1.0
+Summary: Add your description here
+Author: Sunny Savita
+License: Proprietary
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: fastapi>=0.116.1
+Requires-Dist: langchain==0.3.27
+Requires-Dist: python-dotenv==1.1.1
+Requires-Dist: streamlit==1.49.1
