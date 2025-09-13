@@ -1,0 +1,6 @@
+venv_ecom
+.env
+logs
+.env
+clean-repo
+.env.copy
