@@ -1,10 +1,10 @@
 
 astra_db:
-  collection_name: "ecom_product_assistant_collection_two"
+  collection_name: "ecom_product_assistant_collection_three"
 
 embedding_model:
-  provider: "google"
-  model_name: "models/text-embedding-004"
+  provider: "nvidia"
+  model_name: "nvidia/llama-3.2-nemoretriever-300m-embed-v1"
 
 retriever:
   top_k: 10

@@ -19,5 +19,7 @@ langgraph
 ipykernel
 uvicorn
 ragas
+langchain_nvidia_ai_endpoints
+openai 
 
 -e .

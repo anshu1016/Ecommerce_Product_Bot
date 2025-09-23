@@ -8,10 +8,13 @@ from langchain_groq import ChatGroq
 from prod_logger import GLOBAL_LOGGER as log
 from exception.custom_exception import ProductAssistantException
 import asyncio
+from openai import OpenAI
+from langchain_nvidia_ai_endpoints import NVIDIAEmbeddings
+
 
 
 class ApiKeyManager:
-    REQUIRED_KEYS = ["GROQ_API_KEY", "GOOGLE_API_KEY"]
+    REQUIRED_KEYS = ["GROQ_API_KEY", "GOOGLE_API_KEY","NVIDIA_API_KEY"]
 
     def __init__(self):
         self.api_keys = {}
@@ -75,6 +78,12 @@ class ModelLoader:
         """
         try:
             model_name = self.config["embedding_model"]["model_name"]
+            client = NVIDIAEmbeddings(
+            model=model_name, 
+            api_key=self.api_key_mgr.get("NVIDIA_API_KEY"), 
+            truncate="NONE", 
+            )
+            
             log.info("Loading embedding model", model=model_name)
 
             # Patch: Ensure an event loop exists for gRPC aio
@@ -83,10 +92,7 @@ class ModelLoader:
             except RuntimeError:
                 asyncio.set_event_loop(asyncio.new_event_loop())
 
-            return GoogleGenerativeAIEmbeddings(
-                model=model_name,
-                google_api_key=self.api_key_mgr.get("GOOGLE_API_KEY")  # type: ignore
-            )
+            return client
         except Exception as e:
             log.error("Error loading embedding model", error=str(e))
             raise ProductAssistantException("Failed to load embedding model", sys)

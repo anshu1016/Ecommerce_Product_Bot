@@ -8,7 +8,7 @@ from langgraph.graph.message import add_messages
 from prompt_library.prompts import PROMPT_REGISTRY, PromptType
 from retriever.retrieval import Retriever
 from utils.model_loader import ModelLoader
-from langchain.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.memory import MemorySaver
 
 class AgenticRAG:
     """Agentic RAG pipeline using LangGraph."""
@@ -121,13 +121,21 @@ class AgenticRAG:
         return workflow
 
     # ---------- Public Run ----------
-    def run(self, query: str) -> str:
+    def run(self, query: str, thread_id: str = "default_thread") -> str:
         """Run the workflow for a given query and return the final answer."""
         result = self.app.invoke({"messages": [HumanMessage(content=query)]},
                                 config = {"configurable":{"thread_id":thread_id}})
         return result["messages"][-1].content
 
 
+        # function call with be asscoiate
+        # you will get some score
+        # put condition behalf on that score
+        # if relevany>0.75
+            #return
+        #else:
+            #contine
+            
 if __name__ == "__main__":
     rag_agent = AgenticRAG()
     answer = rag_agent.run("What is the price of iPhone 15?")
